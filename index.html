@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Session 4. Data management 2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Wu Zeng, MD, PhD" />
+    <script src="libs/header-attrs-2.22/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/rladies-fonts.css" rel="stylesheet" />
+    <link href="libs/panelset-0.2.6/panelset.css" rel="stylesheet" />
+    <script src="libs/panelset-0.2.6/panelset.js"></script>
+    <script src="libs/fabric-4.3.1/fabric.min.js"></script>
+    <link href="libs/xaringanExtra-scribble-0.0.1/scribble.css" rel="stylesheet" />
+    <script src="libs/xaringanExtra-scribble-0.0.1/scribble.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', function() { window.xeScribble = new Scribble({"pen_color":["#FF0000"],"pen_size":3,"eraser_size":30,"palette":[]}) })</script>
+    <link href="libs/tile-view-0.2.6/tile-view.css" rel="stylesheet" />
+    <script src="libs/tile-view-0.2.6/tile-view.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <link href="libs/bsTable-3.3.7/bootstrapTable.min.css" rel="stylesheet" />
+    <script src="libs/bsTable-3.3.7/bootstrapTable.js"></script>
+    <link rel="stylesheet" href="libs/css/hygge-gu.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+class: title-slide, center, middle, inverse
+
+# Session 4. Data management 2
+
+&lt;!--- ### &lt;br/&gt; Subtitle ---&gt;
+
+#### Wu Zeng, MD, PhD
+
+&lt;img src="libs/pic/GU.gif" width="10%" align="center" /&gt; 
+
+#### Department of Global Health
+
+#### Georgetown University
+
+### Jan 30 2025
+
+---
+# Contents
+
+.pull-left[
+
+- #### Numeric functions
+
+  - Mathematical functions
+  
+  - Statistical functions 
+
+- #### String functions
+
+- #### Control flow
+]
+---
+# Data management challanges 
+
+&lt;table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+&lt;caption&gt;Student exam data&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Student &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Math &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Science &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; English &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; John Davis &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 502 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Angela Williams &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 600 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 99 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bullwinkle Moose &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 412 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; David Jones &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 358 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Janice Markhammer &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 495 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Cheryl Cushing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 512 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Reuven Ytzrhak &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 410 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Greg Knox &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Joel England &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 573 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 89 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mary Rayburn &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 522 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+# Mathmatic functions
+
+&lt;table class="table lightable-paper lightable-hover" style='font-size: 14px; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+&lt;caption style="font-size: initial !important;"&gt;Mathmatic functions&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Function &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; abs(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Absolute value abs(-4) returns 4.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; sqrt(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Square root sqrt(25) returns 5. This is the same as 25^(0.5).  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; ceiling(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Smallest integer not less than x ceiling(3.475) returns 4.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; floor(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Largest integer not greater than x floor(3.475) returns 3.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; round(x, digits=n)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Rounds x to the specified number of decimal places round(3.475, digits=2) returns 3.48.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; exp(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Exponential function exp(2.3026) returns 10. &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; log(x,base=n) log(x) log10(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Logarithm of x to the base n For convenience:  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; log(x) is the natural logarithm.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; log10(x) is the common logarithm.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; log(10) returns 2.3026.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; NA &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; log10(10) returns 1.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; trunc(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Integer formed by truncating values in x toward 0 trunc(5.99) returns 5.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; signif(x, digits=n)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Rounds x to the specified number of significant digits signif(3.475, digits=2) returns 3.5.  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+# The mathematical function above could be used for a vector, scalar, and matrix
+
+Examples 
+
+.panelset[
+.panel[.panel-name[R code]
+
+```r
+v.e1 &lt;- c(4, 16, 25)
+sqrt(v.e1) #square root of the vector of v.e1
+m.e1 &lt;- matrix(1:25, nrow = 5, byrow = TRUE)
+sqrt(m.e1) # Square root of metrix of m.e1
+log(m.e1) # Nature log of metrix of m.e1
+```
+]
+
+.panel[.panel-name[Results]
+
+```
+[1] 2 4 5
+```
+
+```
+         [,1]     [,2]     [,3]     [,4]     [,5]
+[1,] 1.000000 1.414214 1.732051 2.000000 2.236068
+[2,] 2.449490 2.645751 2.828427 3.000000 3.162278
+[3,] 3.316625 3.464102 3.605551 3.741657 3.872983
+[4,] 4.000000 4.123106 4.242641 4.358899 4.472136
+[5,] 4.582576 4.690416 4.795832 4.898979 5.000000
+```
+
+```
+         [,1]      [,2]     [,3]     [,4]     [,5]
+[1,] 0.000000 0.6931472 1.098612 1.386294 1.609438
+[2,] 1.791759 1.9459101 2.079442 2.197225 2.302585
+[3,] 2.397895 2.4849066 2.564949 2.639057 2.708050
+[4,] 2.772589 2.8332133 2.890372 2.944439 2.995732
+[5,] 3.044522 3.0910425 3.135494 3.178054 3.218876
+```
+]
+] 
+---
+# Statistical functions 
+&lt;table class="table lightable-paper lightable-hover" style='font-size: 14px; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+&lt;caption style="font-size: initial !important;"&gt;Statistical functions&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Function &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; mean(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mean mean(c(1,2,3,4)) returns 2.5.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; median(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Median median(c(1,2,3,4)) returns 2.5.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; sd(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Standard deviation sd(c(1,2,3,4)) returns 1.29.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; var(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Variance var(c(1,2,3,4)) returns 1.67.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; quantile(x, probs)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Quantiles where x is the numeric vector, where quantiles are desired and probs is a numeric vector with probabilities in [0,1] # 30th and 84th percentiles of x y &amp;lt;- quantile(x, c(.3,.84))  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; range(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Range x &amp;lt;- c(1,2,3,4) range(x) returns c(1,4). diff(range(x)) returns 3.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; sum(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Sum sum(c(1,2,3,4)) returns 10.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; min(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Minimum min(c(1,2,3,4)) returns 1.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; max(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Maximum max(c(1,2,3,4)) returns 4.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; scale(x, center=TRUE, scale=TRUE)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Column center (center=TRUE) or standardize (center=TRUE, scale=TRUE) data object x. &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+# Examples 
+.panelset[
+.panel[.panel-name[R code]
+
+```r
+x &lt;- c(1,2,3,4,5,6,7,8)
+*mean(x)
+*sd(x)
+n &lt;- length(x)	
+meanx &lt;- sum(x)/n	
+css &lt;- sum((x - meanx)^2)	
+sdx &lt;- sqrt(css / (n-1))	
+*meanx
+*css
+*sdx
+```
+]
+
+.panel[.panel-name[Results]
+
+```
+[1] 4.5
+```
+
+```
+[1] 2.44949
+```
+
+```
+[1] 4.5
+```
+
+```
+[1] 42
+```
+
+```
+[1] 2.44949
+```
+]
+] 
+---
+exclude: TRUE
+# Probability functions 
+
+&lt;table class="table lightable-paper lightable-hover" style='font-size: 16px; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+&lt;caption style="font-size: initial !important;"&gt;Probability functions&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Distribution1 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Abbreviation1 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Distribution2 &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Abbreviation2 &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Beta &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; beta &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Logistic &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; logis &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Binomial &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; binom &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Multinomial &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; multinom &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Cauchy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; cauchy &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Negative binomial &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; nbinom &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Chi-squared (noncentral) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; chisq &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Normal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; norm &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Exponential &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; exp &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Poisson &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; pois &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; F &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; f &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Wilcoxon signed rank &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; signrank &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Gamma &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; gamma &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; T &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; t &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Geometric &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; geom &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Uniform &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; unif &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Hypergeometric &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; hyper &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Weibull &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; weibull &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Lognormal &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; lnorm &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Wilcoxon rank sum &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; wilcox &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+The most important ones are normal, uniform, and t distribution
+---
+exclude: TRUE
+
+# Obtaining values from different distribution
+
+`[dpqr]distribution_abbreviation()`
+- d = density
+
+- p = distribution function (cumulative density function)
+
+- q = quantile function 
+
+- r = random generation
+
+---
+exclude: TRUE
+# Example 
+
+.panelset[
+.panel[.panel-name[R code]
+
+```r
+x &lt;- seq(-3,3,0.1)
+y1 &lt;- dnorm(x)
+y2 &lt;- pnorm(x)
+df.e1 &lt;- data.frame(x, y1, y2)
+ggplot(df.e1,mapping = aes(x,y1)) +
+  geom_line() +
+  labs(y = "Density") +
+  theme_bw()
+```
+]
+
+.panel[.panel-name[Results]
+&lt;img src="index_files/figure-html/disexp1-1.png" width="400" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[R code]
+
+```r
+ggplot(df.e1, mapping = aes(x,y2)) +
+  geom_line() + 
+  labs(y = "Cumulative density") +
+  theme_bw()
+```
+]
+
+.panel[.panel-name[Results]
+&lt;img src="index_files/figure-html/disexp2-1.png" width="400" style="display: block; margin: auto;" /&gt;
+]
+
+.panel[.panel-name[R code]
+
+```r
+qnorm(0.5)
+```
+
+```
+[1] 0
+```
+
+```r
+qnorm(0.95, mean = 100, sd = 10)
+```
+
+```
+[1] 116.4485
+```
+
+```r
+rnorm(8)
+```
+
+```
+[1]  0.2440704  0.3647444  0.2022369 -0.8922624 -1.4968113  1.6134686 -0.1675407  1.7389164
+```
+
+```r
+set.seed(100)
+rnorm(8, mean = 100, sd = 10)
+```
+
+```
+[1]  94.97808 101.31531  99.21083 108.86785 101.16971 103.18630  94.18209 107.14533
+```
+]
+
+] 
+---
+# Character functions 
+
+&lt;table class="table lightable-paper lightable-hover" style='font-size: 18px; margin-left: auto; margin-right: auto; font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+&lt;caption style="font-size: initial !important;"&gt;Character functions&lt;/caption&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Function &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; nchar(x) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Counts the number of characters of x. x &amp;lt;- c("ab", "cde", "fghij") length(x) returns 3 (see table 5.7). nchar(x[3]) returns 5. &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; substr(x, start, stop) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Extracts or replaces substrings in a character vector. x &amp;lt;- "abcdef" substr(x, 2, 4) returns bcd. substr(x, 2, 4) &amp;lt;- "22222" (x is now "a222ef"). &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; strsplit(x, split, fixed=FALSE) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Splits the elements of character vector x at split. If fixed=FALSE, then pattern is a regular expression. If fixed=TRUE, then pattern is a text string. y &amp;lt;- strsplit("abc", "") returns a one-component, three-element list containing "a" "b" "c" unlist(y)[2] and sapply(y, "[", 2) both return “b”. &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; paste(..., sep="") &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Concatenates strings after using the sep string to separate them. paste("x", 1:3, sep="") returns c("x1", "x2", "x3"). paste("x",1:3,sep="M") returns c("xM1","xM2" "xM3"). paste("Today is", date()) returns Today is Mon Dec 28 14:17:32 2015 (I changed the date to appear more current.) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; toupper(x) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Uppercase. toupper("abc") returns “ABC” &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; tolower(x) &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Lowercase. tolower("ABC") returns “abc” &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+---
+
+# Examples 
+
+
+```r
+strsplit("abc","")
+```
+
+```
+[[1]]
+[1] "a" "b" "c"
+```
+
+```r
+y &lt;- list(c("a", "b", "c"))
+y
+```
+
+```
+[[1]]
+[1] "a" "b" "c"
+```
+
+---
+# Examples 
+
+
+```r
+read_excel("S4-T1.xlsx", sheet = "Sheet1") %&gt;%
+  mutate(nc = nchar(Student),
+         ft = substr(Student,1,3),
+         fname = strsplit(Student," ")) %&gt;%
+  mutate(firstname = sapply(fname,"[", 1),
+         lastname = sapply(fname,"[",2),
+         nfname = paste(firstname,lastname," "),
+         smath = scale(Math))  %&gt;%
+  kbl() %&gt;%
+  kable_paper("hover", full_width=F)
+```
+---
+# New dataset 
+
+&lt;table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Student &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Math &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Science &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; English &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; nc &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; ft &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; fname &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; firstname &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; lastname &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; nfname &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; smath &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; John Davis &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 502 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 25 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 10 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Joh &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; John , Davis &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; John &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Davis &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; John Davis &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.01269128 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Angela Williams &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 600 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 99 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 22 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ang &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Angela  , Williams &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Angela &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Williams &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Angela Williams &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.14336936 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Bullwinkle Moose &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 412 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 16 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Bul &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Bullwinkle, Moose &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Bullwinkle &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Moose &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Bullwinkle Moose &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.02568654 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; David Jones &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 358 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 82 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 11 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Dav &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; David, Jones &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; David &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Jones &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; David Jones &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.64871324 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Janice Markhammer &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 495 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 75 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 20 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 17 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Jan &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Janice    , Markhammer &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Janice &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Markhammer &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Janice Markhammer &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.06807144 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Cheryl Cushing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 512 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 85 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 28 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Che &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cheryl , Cushing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cheryl &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cushing &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Cheryl Cushing &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.12806660 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Reuven Ytzrhak &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 410 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 80 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 15 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 14 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Reu &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Reuven , Ytzrhak &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Reuven &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Ytzrhak &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Reuven Ytzrhak &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -1.04876160 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Greg Knox &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 625 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 95 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 30 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Gre &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Greg, Knox &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Greg &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Knox &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Greg Knox &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.43180765 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Joel England &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 573 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 89 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Joe &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Joel   , England &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Joel &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; England &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Joel England &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.83185601 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Mary Rayburn &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 522 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 86 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 18 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 12 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mar &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mary   , Rayburn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mary &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Rayburn &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Mary Rayburn &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.24344191 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# Other useful functions
+
+&lt;table class=" lightable-paper lightable-hover" style='font-family: "Arial Narrow", arial, helvetica, sans-serif; width: auto !important; margin-left: auto; margin-right: auto;'&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; Function  &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; Description &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; length(x)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Returns the length of object x. x &amp;lt;- c(2, 5, 6, 9) length(x) returns 4.  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; seq(from, to, by)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Generates a sequence. indices &amp;lt;- seq(1,10,2) indices is c(1, 3, 5, 7, 9).  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; rep(x, n)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Repeats x n times. y &amp;lt;- rep(1:3, 2) y is c(1, 2, 3, 1, 2, 3).  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; pretty(x, n)  &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Creates pretty breakpoints. Divides a continuous variable x into n intervals by selecting n + 1 equally spaced rounded values. Often used in plotting.  &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+---
+# Examples 
+
+.panelset[
+.panel[.panel-name[R code]
+
+
+```r
+seq(-3,3,0.5)
+rep(1:4, 2)
+pretty(c(-3,3), 12)
+```
+]
+
+.panel[.panel-name[Results]
+
+```
+ [1] -3.0 -2.5 -2.0 -1.5 -1.0 -0.5  0.0  0.5  1.0  1.5  2.0  2.5  3.0
+```
+
+```
+[1] 1 2 3 4 1 2 3 4
+```
+
+```
+ [1] -3.0 -2.5 -2.0 -1.5 -1.0 -0.5  0.0  0.5  1.0  1.5  2.0  2.5  3.0
+```
+
+]
+] 
+---
+# Conditional execution 
+
+`if()`, `else()` and `ifelse()`
+
+Command
+
+- `if (condition) {statement 1}`
+
+- `if (condition) {statement 1} else {statement 2}`
+
+- `ifelse (conditions vector, yes vector, no vector)`
+
+Example 
+
+.pull-left[
+
+
+```r
+x&lt;-4
+if (x == 5) {x &lt;- x+1} else {x &lt;- x*2}
+
+x &lt;- 4
+ifelse(x==5, x&lt;-x+1, x&lt;-x*2)
+```
+]
+
+.pull-right[
+
+```
+[1] 8
+```
+]
+---
+
+# Loop
+
+- `for()`: executes a statement repetitively until a variable's value is no longer contained in the sequence seq. 
+
+- `while()`: executes a statement repetitively until the condition is no loner true
+
+Command
+
+`for(var in set) {statements}`
+
+`while(condition) {statements}`
+
+Examples
+
+.panelset[
+.panel[.panel-name[R code]
+
+```r
+x &lt;- 10
+for(i in 1:15) {x &lt;- x+i}
+x
+
+x&lt;- 10
+i &lt;- 1
+while (i &lt;= 15) {x &lt;- x+i; i&lt;- i+1}
+x
+```
+]
+
+.panel[.panel-name[Results]
+
+```
+[1] 130
+```
+
+```
+[1] 130
+```
+]
+] 
+---
+# Group exercise
+
+use the dataset of `mtcars`, do the following 
+
+.pull-left[
+
+#### Calculation: Calculate the following statistics for `mpg`
+
+  a. .red[mean]
+  
+  b. .red[median]
+  
+  c. .red[standard deviation], 
+  
+  d. .red[variance], 
+  
+  e. .red[minimum]
+  
+  f. .red[maximum] 
+  
+  g. .red[range]
+  
+  h. .red[80 percentile] 
+
+]
+
+.pull-right[
+
+#### Transformation: generate following new variables
+
+  a. sqr_mpg: square root of `mpg`
+  
+  b. log_mpg: nature log of `mpg`
+  
+  c. exp_mpg: exponential of `mpg`
+  
+  d. sq_mpg: `mpg` square
+  
+  e. r_mpg: round `mpg` to its nearest integer
+]
+---
+exclude: TRUE
+# Excercise on normal distribution
+
+1. calculate density of the value 1.96 in a standard normal distribution `\(N \sim (0, 1)\)`
+
+2. calculate cumulative density for the value of 1.96 in `\(N \sim (0, 1)\)`
+
+3. calculate density of the value 1.96 in `\(N \sim (3, 2)\)`
+
+4. calculate cumulative density for the value of 1.96 in `\(N \sim (3, 2)\)`
+
+5. Identify the value which is 80 percentile in `\(N \sim (3, 2)\)`
+
+1. Randomly draw 300 numbers from `\(N \sim (20, 5)\)`, and assign the numbers to the vector named `firstrn`
+
+2. calculate mean and standard deviation of `firstrm`
+
+
+
+
+
+---
+
+# if(), else(), or ifelse()
+
+use data of `mtcars` 
+
+- create a new dataframe named `ndta1`, which is a copy of `mtcars`
+
+- Generate a new variable of `efficent`, which equals 1 if `mpg` is greater than 20 and equals 0 otherwise
+
+
+
+&lt;!--- # loop function for()
+
+- Generate a 10 random values from a uniform distribution, setting seed of 100 for reproducibility, and save it to the vector named `firstv`
+
+- display the result
+
+- change the value of first 5 elements to be the square of the value in `firstv`
+
+- display the result
+---&gt;
+
+
+
+---
+
+class: middle, center, inverse
+
+# .large[Thank you!]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"ratio": "16:9"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
